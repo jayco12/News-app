@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../components/clientauthentication.dart';
+import '../components/validator.dart';
 import '../constants.dart';
 import '../controllers/signup.controller.dart';
 import '../route/route.name.dart';
@@ -118,70 +119,87 @@ class _SignUpState extends State<SignUp> {
                       SizedBox(
                         height: 40,
                       ),
-                      CustomTextField(
-                        label: 'Name',
-                        controller: signUpController.name,
-                        hint: "Name",
-                        onSubmitted: (text) {},
-                        inputType: kEmailInput,
-                        inputFormat: kEmailFormatter,
-                      ),
-                      SizedBox(height: 16.h),
-                      CustomTextField(
-                        label: 'Email Adress',
-                        controller: signUpController.emailAddress,
-                        hint: "Email Address",
-                        onSubmitted: (text) {},
-                        inputType: kEmailInput,
-                        inputFormat: kEmailFormatter,
-                      ),
-                      SizedBox(height: 16.h),
-                      CustomTextField(
-                        label: 'Password',
-                        controller: signUpController.password,
-                        hint: "Password",
-                        onSubmitted: (text) {},
-                        inputType: kEmailInput,
-                        inputFormat: kEmailFormatter,
-                      ),
-                      SizedBox(height: 16.h),
-                      SizedBox(height: 38.h),
-                      _isProgress
-                          ? const CircularProgressIndicator()
-                          : SizedBox(
-                              width: double.maxFinite,
-                              child: CustomButton(
-                                onclick: () async {
-                                  if (_formKey.currentState!.validate()) {
-                                    setState(() {
-                                      _isProgress = true;
-                                    });
-                                    final User? user =
-                                        await _authClient.registerUser(
-                                      name: signUpController.name.text,
-                                      email: signUpController.emailAddress.text,
-                                      password: signUpController.password.text,
-                                    );
-                                    setState(() {
-                                      _isProgress = false;
-                                    });
-
-                                    if (user != null) {
-                                      Get.to(() => BottomNavigator(user: user));
-                                    }
-                                  }
-                                },
-                                child: Padding(
-                                  padding: EdgeInsets.all(16.0),
-                                  child: CustomText(
-                                    text: "Sign Up",
-                                    colour: AppColours.primaryWhite,
-                                    weight: kFW400,
-                                    size: 16.sp,
-                                  ),
-                                ),
-                              ),
+                      Form(
+                        key: _formKey,
+                        child: Column(
+                          children: [
+                            CustomTextField(
+                              label: 'Name',
+                              controller: signUpController.name,
+                              hint: "Name",
+                              inputType: kEmailInput,
+                              inputFormat: kEmailFormatter,
                             ),
+                            SizedBox(height: 16.h),
+                            CustomTextField(
+                              label: 'Email Adress',
+                              controller: signUpController.emailAddress,
+                              validator: Validator.email,
+                              hint: "Email Address",
+                              inputType: kEmailInput,
+                              inputFormat: kEmailFormatter,
+                            ),
+                            SizedBox(height: 16.h),
+                            CustomTextField(
+                              validator: Validator.password,
+                              label: 'Password',
+                              controller: signUpController.password,
+                              hint: "Password",
+                              inputType: kEmailInput,
+                              inputFormat: kEmailFormatter,
+                            ),
+                            SizedBox(height: 16.h),
+                            SizedBox(height: 38.h),
+                            _isProgress
+                                ? const CircularProgressIndicator()
+                                : SizedBox(
+                                    width: double.maxFinite,
+                                    child: CustomButton(
+                                      onclick: () async {
+                                        if (_formKey.currentState!.validate()) {
+                                          setState(() {
+                                            _isProgress = true;
+                                          });
+                                          final User? user =
+                                              await _authClient.registerUser(
+                                            name: signUpController.name.text,
+                                            email: signUpController
+                                                .emailAddress.text,
+                                            password:
+                                                signUpController.password.text,
+                                          );
+                                          setState(() {
+                                            _isProgress = false;
+                                          });
+
+                                          if (user != null) {
+                                            Navigator.of(context)
+                                                .pushAndRemoveUntil(
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    BottomNavigator(
+                                                  user: user,
+                                                ),
+                                              ),
+                                              (route) => false,
+                                            );
+                                          }
+                                        }
+                                      },
+                                      child: Padding(
+                                        padding: EdgeInsets.all(16.0),
+                                        child: CustomText(
+                                          text: "Sign Up",
+                                          colour: AppColours.primaryWhite,
+                                          weight: kFW400,
+                                          size: 16.sp,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                          ],
+                        ),
+                      ),
                       SizedBox(height: 34.h),
                       RichText(
                         text: TextSpan(

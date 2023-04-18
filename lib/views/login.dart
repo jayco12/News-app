@@ -6,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import '../components/clientauthentication.dart';
+import '../components/validator.dart';
 import '../constants.dart';
 import '../controllers/login.controller.dart';
 import '../route/route.name.dart';
@@ -128,16 +129,16 @@ class _LoginState extends State<Login> {
                         label: 'Email Adress',
                         controller: loginController.emailAddress,
                         hint: "Email Address",
-                        onSubmitted: (text) {},
+                        validator: Validator.email,
                         inputType: kEmailInput,
                         inputFormat: kEmailFormatter,
                       ),
                       SizedBox(height: 26.h),
                       CustomTextField(
                         label: 'Password',
+                        validator: Validator.password,
                         controller: loginController.password,
                         hint: "Password",
-                        onSubmitted: (text) {},
                         inputType: kEmailInput,
                         inputFormat: kEmailFormatter,
                       ),
@@ -146,8 +147,8 @@ class _LoginState extends State<Login> {
                           ? const CircularProgressIndicator()
                           : SizedBox(
                               width: double.maxFinite,
-                              child: CustomButton(
-                                onclick: () async {
+                              child: ElevatedButton(
+                                onPressed: () async {
                                   if (_formKey.currentState!.validate()) {
                                     setState(() {
                                       _isProgress = true;
@@ -170,7 +171,7 @@ class _LoginState extends State<Login> {
                                 child: Padding(
                                   padding: EdgeInsets.all(16.0),
                                   child: CustomText(
-                                    text: "Sign Up",
+                                    text: "Log in",
                                     colour: AppColours.primaryWhite,
                                     weight: kFW400,
                                     size: 16.sp,

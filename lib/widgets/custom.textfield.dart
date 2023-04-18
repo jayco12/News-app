@@ -14,9 +14,9 @@ class CustomTextField extends StatelessWidget {
     required this.label,
     this.readOnly,
     this.maxLength,
-    required this.onSubmitted,
     required this.inputType,
     required this.inputFormat,
+    this.validator,
   });
 
   final TextEditingController controller;
@@ -25,7 +25,7 @@ class CustomTextField extends StatelessWidget {
   final String label;
   final bool? readOnly;
   final int? maxLength;
-  final void Function(String) onSubmitted;
+  final validator;
   final TextInputType inputType;
   final List<TextInputFormatter> inputFormat;
 
@@ -34,7 +34,7 @@ class CustomTextField extends StatelessWidget {
     return SizedBox(
       height: 49.h,
       width: 378.w,
-      child: TextField(
+      child: TextFormField(
         style: GoogleFonts.lato(
           color: AppColours.primaryGrey,
           fontSize: 16.sp,
@@ -45,7 +45,7 @@ class CustomTextField extends StatelessWidget {
         textInputAction: kActionNext,
         readOnly: readOnly ?? false,
         maxLength: maxLength,
-        onSubmitted: onSubmitted,
+        validator: validator,
         keyboardType: inputType,
         inputFormatters: inputFormat,
         decoration: InputDecoration(

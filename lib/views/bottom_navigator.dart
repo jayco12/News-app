@@ -29,23 +29,21 @@ class _BottomNavigatorState extends State<BottomNavigator> {
   Widget build(BuildContext context) {
     return Scaffold(
       // drawer: sideDrawer(newsController),
-      appBar: customAppBar('welcome ${user?.displayName}', context
-          //actions: [
-          //   IconButton(
-          //     onPressed: () {
-          //       newsController.country.value = '';
-          //       newsController.category.value = '';
-          //       newsController.searchNews.value = '';
-          //       newsController.channel.value = '';
-          //       newsController.cName.value = '';
-          //       newsController.getAllNews(reload: true);
-          //       newsController.getBreakingNews(reload: true);
-          //       newsController.update();
-          //     },
-          //     icon: const Icon(Icons.refresh),
-          //   ),
-          // ]
-          ),
+      appBar: customAppBar('welcome ${user?.displayName}', context, actions: [
+        IconButton(
+          onPressed: () {
+            // newsController.country.value = '';
+            // newsController.category.value = '';
+            // newsController.searchNews.value = '';
+            // newsController.channel.value = '';
+            // newsController.cName.value = '';
+            // newsController.getAllNews(reload: true);
+            // newsController.getBreakingNews(reload: true);
+            // newsController.update();
+          },
+          icon: const Icon(Icons.refresh),
+        ),
+      ]),
       body: SingleChildScrollView(
         keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
         physics: const BouncingScrollPhysics(),

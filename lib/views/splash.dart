@@ -9,9 +9,14 @@ import '../controllers/splash.controller.dart';
 import '../route/route.name.dart';
 import '../widgets/custom.text.dart';
 
-class Splash extends GetView<SplashController> {
-  Splash({Key? key}) : super(key: key);
+class Splash extends StatefulWidget {
+  const Splash({Key? key}) : super(key: key);
 
+  @override
+  State<Splash> createState() => _SplashState();
+}
+
+class _SplashState extends State<Splash> {
   SplashController splashController = Get.put(SplashController());
   PageController pageController = PageController();
 
@@ -26,25 +31,25 @@ class Splash extends GetView<SplashController> {
           itemBuilder: (context, index) => Stack(
             children: [
               _buildCarousel(),
-              Center(
-                child: Stack(
-                  children: [
-                    SizedBox(
-                      height: 100,
-                      child: Positioned(
-                        top: 379.h,
-                        child: CustomText(
-                          text:
-                              "Get the latest and updated Articles Easily with us",
-                          colour: AppColours.primaryWhite,
-                          weight: FontWeight.w700,
-                          size: 20.sp,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+              // Center(
+              //   child: Stack(
+              //     children: [
+              //       SizedBox(
+              //         height: 100,
+              //         child: Positioned(
+              //           top: 379.h,
+              //           child: CustomText(
+              //             text:
+              //                 "Get the latest and updated Articles Easily with us",
+              //             colour: AppColours.primaryWhite,
+              //             weight: FontWeight.w700,
+              //             size: 20.sp,
+              //           ),
+              //         ),
+              //       ),
+              //     ],
+              //   ),
+              // ),
               Stack(
                 children: [
                   Positioned(
@@ -106,7 +111,7 @@ class Splash extends GetView<SplashController> {
           children: [
             Image.asset("images/news.jpg"),
             Positioned(
-              top: 440.h,
+              top: 330.h,
               right: 10.w,
               left: 10.w,
               child: SizedBox(
@@ -127,7 +132,7 @@ class Splash extends GetView<SplashController> {
           children: [
             Image.asset("images/new.jpg"),
             Positioned(
-              top: 440.h,
+              top: 330.h,
               left: 20.w,
               right: 10.w,
               child: SizedBox(
@@ -148,7 +153,7 @@ class Splash extends GetView<SplashController> {
           children: [
             Image.asset("images/break.jpg"),
             Positioned(
-              top: 440.h,
+              top: 330.h,
               right: 12.w,
               left: 10.w,
               child: SizedBox(
